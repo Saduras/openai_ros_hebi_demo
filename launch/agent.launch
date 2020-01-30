@@ -1,0 +1,7 @@
+<launch>
+    <!-- Launch Gazebo and Hebi controllers -->
+    <include file="$(find hebi_gazebo)/launch/arm_moveit_simulation.launch" />
+
+    <!-- Launch gym and agent -->
+    <node pkg="openai_ros_hebi_demo" name="gym_agent" type="gym_agent.py" output="screen"/>
+</launch>
