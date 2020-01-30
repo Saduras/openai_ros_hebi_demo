@@ -17,3 +17,9 @@ source ~/catkin_ws/devel/setup.bash
 ```
 pip install gym GitPython
 ```
+
+# Run
+
+```
+roslaunch openai_ros_hebi_demo agent.launch
+```
