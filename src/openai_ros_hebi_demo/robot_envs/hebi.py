@@ -54,7 +54,10 @@ class HebiEnv(robot_gazebo_env.RobotGazeboEnv):
         self.joints = JointState()
 
         # Start Services
-        # self.move_hebi_object = MoveHebi()
+        rospy.loginfo("WAITING before init MoveItCommander")
+        import time
+        time.sleep(5.0)
+        self.move_hebi_object = MoveHebi()
 
         # Wait until it has reached its Sturtup Position
         self.wait_hebi_ready()
@@ -115,10 +118,10 @@ class HebiEnv(robot_gazebo_env.RobotGazeboEnv):
         # Set up a trajectory message to publish.
         ee_target = geometry_msgs.msg.Pose()
 
-        ee_target.orientation.x = -0.707
-        ee_target.orientation.y = 0.0
-        ee_target.orientation.z = 0.707
-        ee_target.orientation.w = 0.001
+        ee_target.orientation.x = action[3]
+        ee_target.orientation.y = action[4]
+        ee_target.orientation.z = action[5]
+        ee_target.orientation.w = action[6]
 
         ee_target.position.x = action[0]
         ee_target.position.y = action[1]
@@ -228,6 +231,22 @@ class HebiEnv(robot_gazebo_env.RobotGazeboEnv):
             time.sleep(1.0)
 
         print("WAITING...DONE")
+
+    def move_to_init_pose(self):
+        #     pose:
+        #   position: 
+        #     x: 0.342598879981
+        #     y: 0.171078256287
+        #     z: 0.557494937993
+        #   orientation: 
+        #     x: -0.499643184519
+        #     y: 0.499851497435
+        #     z: -0.496919001675
+        #     w: 0.50356397255
+        position = [0.3436, 0.1711, 0.5575]
+        orientation = [-0.4996, 0.4999, -0.4969, 0.5035]
+        action = self.create_action(position, orientation)
+        self.set_trajectory_ee(action)
 
     # ParticularEnv methods
     # ----------------------------
