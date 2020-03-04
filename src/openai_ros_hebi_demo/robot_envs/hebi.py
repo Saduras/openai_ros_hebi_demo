@@ -33,7 +33,7 @@ class HebiEnv(robot_gazebo_env.RobotGazeboEnv):
                                        robot_name_space=self.robot_name_space,
                                        reset_controls=self.reset_controls,
                                        start_init_physics_parameters=False,
-                                       reset_world_or_sim="WORLD")
+                                      reset_world_or_sim="WORLD")
 
         # We Start all the ROS related Subscribers and publishers
 
@@ -62,7 +62,6 @@ class HebiEnv(robot_gazebo_env.RobotGazeboEnv):
         # Wait until it has reached its Sturtup Position
         self.wait_hebi_ready()
 
-        self.gazebo.pauseSim()
         # Variables that we give through the constructor.
 
         rospy.logdebug("========= Out Hebi Env")
