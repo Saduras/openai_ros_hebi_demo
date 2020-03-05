@@ -1,7 +1,9 @@
 <launch>
     <!-- Launch Gazebo and Hebi controllers -->
     <include file="$(find hebi_gazebo)/launch/arm_moveit_simulation.launch" >
-        <arg name="use_sim_time" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <!-- <arg name="arm_type" default="A-2085-06"/> -->
+        <arg name="arm_type" default="HEBI_Scara"/>
     </include>
 
 
