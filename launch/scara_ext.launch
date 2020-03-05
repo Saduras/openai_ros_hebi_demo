@@ -1,0 +1,25 @@
+<launch>
+    <arg name="arm_type" default="HEBI_Scara"/>
+    <arg name="gripper_type" value="none"/>
+
+    <arg name="use_sim_time" default="true"/>
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+
+    <!-- don't use hrdf here since the prismatic joint is not specified in it -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find hebi_description)/urdf/kits/HEBI_Scara_ext.urdf" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="debug" value="false"/>
+        <arg name="gui" value="true"/>
+        <arg name="world_name" value="$(find hebi_gazebo)/worlds/basic_test.world"/>
+    </include>
+
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-z 0.5 -urdf -param robot_description -model RobotArm" />
+
+    <include file="$(find hebi_cpp_api_examples)/launch/arm_moveit_node.launch">
+        <arg name="arm_type" value="$(arg arm_type)" />
+        <arg name="gripper_type" value="$(arg gripper_type)" />
+        <arg name="config_dir" value="$(find hebi_cpp_api_examples)/config" />
+    </include>
+</launch>
