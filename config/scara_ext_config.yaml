@@ -1,0 +1,17 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+rail_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints: 
+    - prismatic
+
+  gains:
+    prismatic: { p: 440, d: 140, i: 0.01, i_clamp: 10000 }
+
+  constraints:
+    goal_time: 2.0
+
+  state_publish_rate: 25
